@@ -1,0 +1,26 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  favicon: "img/rmgis.png"
+  title: "Honours Research Project - ESW stats"
+  sidebar:
+    logo: "img/rmgis.png"
+    style: "docked"
+    search: true
+    contents: 
+      - section: "Sessions"
+        contents:
+          - tidy.qmd
+format:
+  html:
+    highlight-style: a11y
+    theme:
+      light: flatly
+      dark: darkly
+    css: styles.css
+    toc: true
+
+editor: visual
+

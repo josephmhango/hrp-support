@@ -1,0 +1,1148 @@
+---
+title: "Data Foundations"
+subtitle: "Setting yourself up for less headache"
+author: "Joseph Mhango"
+css: scroll.css
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    toc: true
+    toc-depth: 3
+    incremental: false
+    code-line-numbers: false
+    chalkboard: true
+    controls: true
+    hash: true
+editor: visual
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Welcome: Analytics is a Data Science Exercise
+
+In this module, you are not “just” SPSS button-clickers.
+
+Analytics is a **data science exercise**:
+
+-   You collect or receive data.
+-   You decide how to store and organise it.
+-   You choose which analyses are appropriate.
+-   You interpret and communicate the results.
+
+SPSS (or R, or anything else) is **just a tool**.\
+The real power is in how well you understand your data.
+
+------------------------------------------------------------------------
+
+## The 80–20 Rule of Data Work
+
+A common rule of thumb in data science:
+
+> **80% of the time is spent on data preparation**,\
+> **20% on modelling and analysis.**
+
+What “data preparation” includes:
+
+-   Designing a sensible spreadsheet.
+-   Cleaning and checking values.
+-   Choosing variable types and formats.
+-   Calculating/engineering features/variables
+-   Reshaping the table to fit the analysis.
+
+If **this part is done well**:
+
+-   SPSS feels much easier.
+-   Outputs make more sense.
+-   You spend your energy on *interpretation*, not firefighting.
+
+------------------------------------------------------------------------
+
+## Why Start *Before* SPSS?
+
+Trying to learn **all of this at once**:
+
+-   Statistics concepts,
+-   SPSS menus and options,
+-   Data cleaning and reshaping,
+
+…is a recipe for overload.
+
+Instead we will:
+
+1.  First understand **what good data looks like** using tables (Excel/Sheets).
+2.  Practice spotting and fixing problems in small examples.
+3.  Then move into SPSS where the focus is on **modelling and interpreting**.
+
+The aim:\
+When you open SPSS, the dataset already “makes sense in your head”.
+
+------------------------------------------------------------------------
+
+## What We'll Cover in This Series
+
+-   Foundations:
+    -   What does **one row** represent?
+    -   What does **one column** represent?
+    -   Variable types and why they matter in SPSS.
+    -   Tidy data principles and common formatting traps.
+-   Data layouts and wrangling for analysis:
+    -   **Wide vs long** layouts.
+    -   Which layouts suit t-tests, ANOVA, repeated measures, mixed models, and simple spatial/temporal data.
+    -   Basic spreadsheet wrangling: reshaping, concatenating IDs, aggregating.
+
+Later sessions will apply these ideas in SPSS as part of the same series.
+
+------------------------------------------------------------------------
+
+## How We’ll Work
+
+These slides are **student-facing**:
+
+-   You can follow them independently.
+-   Explanations are written to *you*, not as notes to a lecturer.
+
+You will:
+
+-   Read through small examples.
+-   Discuss interactive scenarios as a whole group.
+-   Compare and refine reasoning together on the same slide.
+
+You can treat this like a **guided workbook** on data foundations.
+
+------------------------------------------------------------------------
+
+## What Is a Dataset?
+
+------------------------------------------------------------------------
+
+## Data Constructs: Cross-sectional
+
+Definition:
+
+-   Measurements on **many units at a single point in time**.
+-   Units are independent (e.g., students, plots, households).
+
+Examples:
+
+-   Exam scores of different students on one exam date.
+-   Yield per plot at harvest this season.
+
+Simple shape (one row per unit):
+
+| StudentID | Method | Score |
+|-----------|--------|-------|
+| S01       | A      | 78    |
+| S02       | B      | 72    |
+
+Implications:
+
+-   Usually straightforward and “tidy by default”.
+-   Works well with many analyses without reshaping.
+
+------------------------------------------------------------------------
+
+## Data Constructs: Time Series
+
+Definition:
+
+-   Measurements on **one unit across time**.
+-   Focus is on temporal patterns for a single subject/object.
+
+Examples:
+
+-   Weekly soil moisture for one sensor.
+-   Monthly sales for one shop.
+
+Example (one unit, long form):
+
+| Date       | SoilMoisture |
+|------------|--------------|
+| 2025-10-01 | 22.3         |
+| 2025-10-08 | 21.7         |
+| 2025-10-15 | 19.8         |
+
+Implications:
+
+-   Naturally fits a long layout with a dedicated time variable.
+-   Many time-based plots and models expect a time column.
+
+------------------------------------------------------------------------
+
+## Data Constructs: Panel / Longitudinal
+
+Definition:
+
+-   Measurements on **many units tracked over time**.
+-   Also called “repeated measures” or “longitudinal” data.
+
+Examples:
+
+-   Yield for multiple plots measured each year.
+-   Student test scores collected each term for the same students.
+
+Example (many units over time, long form):
+
+| PlotID | Year | Yield_t_ha |
+|--------|------|------------|
+| 1      | 1    | 7.2        |
+| 1      | 2    | 7.8        |
+| 2      | 1    | 5.8        |
+| 2      | 2    | 6.0        |
+
+Implications:
+
+-   Long layout is flexible for mixed models and many visualisations.
+-   Some SPSS procedures (classic repeated-measures GLM) prefer wide.
+-   We will map these choices in “Wide vs Long” and “Mapping Layouts to Analyses”.
+
+------------------------------------------------------------------------
+
+## Why Constructs Matter for Layouts
+
+-   Cross-sectional → usually simple tables; layout is often already tidy.
+-   Time series (one unit over time) → long layout with a time column is natural.
+-   Panel/longitudinal (many units over time) → long layout is versatile; some procedures want wide.
+-   Knowing your construct helps you choose:
+    -   variable types (e.g., treat time as a variable),
+    -   data layout (wide vs long) for the intended analysis.
+
+We will build on this in:
+
+-   “Wide vs Long: Basic Definitions”
+-   “Mapping Layouts to Analyses”
+
+## Data as a Table
+
+Think of a dataset as a simple **table**:
+
+-   **Rows** (horizontal)\
+-   **Columns** (vertical)\
+-   **Cells** (single entry where a row and column meet)
+
+The most important question:
+
+> **What does one row represent?**\
+> → This is your **unit of observation**.
+
+Examples of possible units:
+
+-   One student
+-   One field plot
+-   One fertiliser treatment on a plot at one time
+-   One plant
+-   One sensor reading at one location and time
+
+Once you know what **one row** is, everything else becomes easier.
+
+## Scenario 1: Identify the Unit
+
+You see this table from a fertiliser trial:
+
+| Plot | Fertiliser | Yield_t_ha | PlantHeight_cm |
+|------|------------|------------|----------------|
+| 1    | FertA      | 7.2        | 85             |
+| 1    | FertA      | 6.9        | 83             |
+| 2    | FertB      | 5.8        | 78             |
+| 2    | FertB      | 6.1        | 80             |
+
+**Think:**
+
+1.  What is one **row** here?
+2.  Why is Plot 1 shown twice?
+3.  What might the repeated rows mean?
+
+**Reasoning**
+
+-   One row = **one subsample** (or one quadrat) within a plot.
+-   Plot 1 appears twice because we have **two subsamples** within Plot 1.
+-   Plot is the higher-level unit; subsamples are lower-level observations nested within plots.
+
+So you could say:
+
+> “In this dataset, each row is one subsample measured within a plot.”
+
+------------------------------------------------------------------------
+
+## Variables: What Are Columns?
+
+Each **column** should represent a **single variable**.
+
+For the fertiliser table:
+
+-   `Plot` – ID code for the plot.
+-   `Fertiliser` – fertiliser treatment applied (FertA, FertB).
+-   `Yield_t_ha` – grain yield in tonnes per hectare.
+-   `PlantHeight_cm` – average plant height in centimetres.
+
+We usually group variables into:
+
+-   **Numeric** (continuous or counts)
+-   **Categorical** (groups/labels)
+-   **ID / key** (codes that identify things)
+-   **Date/time**
+-   **Spatial coordinates**
+
+Knowing which is which tells SPSS **how to treat** each column.
+
+------------------------------------------------------------------------
+
+## Tidy Data: The Three Rules
+
+We will use **tidy data** as a target shape:
+
+1.  **Each variable forms one column.**
+2.  **Each observation forms one row.**
+3.  **Each value forms a single cell.**
+
+This is not a law, but a **helpful mental model**.
+
+If you follow these rules:
+
+-   It’s easier to reason about your data.
+-   Most software (SPSS, R, Python) behaves more predictably.
+
+------------------------------------------------------------------------
+
+## Messy Example: Multiple Values in One Cell
+
+Consider this version of the fertiliser data:
+
+| Plot | Fertiliser | Yield_and_Height |
+|------|------------|------------------|
+| 1    | FertA      | 7.2 t/ha; 85 cm  |
+| 2    | FertB      | 5.8 t/ha; 78 cm  |
+
+Problems:
+
+-   `Yield_and_Height` actually contains **two variables**:
+    -   Yield
+    -   Plant height
+-   Units (`t/ha`, `cm`) are mixed into the values.
+-   You cannot easily ask SPSS to:
+    -   calculate mean yield,
+    -   plot height vs yield, because SPSS sees just one messy text column.
+
+------------------------------------------------------------------------
+
+## Fixing the Messy Example
+
+A cleaner version:
+
+| Plot | Fertiliser | Yield_t_ha | PlantHeight_cm |
+|------|------------|------------|----------------|
+| 1    | FertA      | 7.2        | 85             |
+| 2    | FertB      | 5.8        | 78             |
+
+What changed?
+
+-   **Two variables** are now separate:
+    -   `Yield_t_ha`
+    -   `PlantHeight_cm`
+-   Each cell has a **single numeric value**.
+-   Units are moved into the **column names** (or into documentation).
+
+This now follows the tidy rules and will behave nicely in SPSS:
+
+-   `Yield_t_ha` and `PlantHeight_cm` can be declared as numeric.
+-   You can run t-tests, ANOVA, plots, etc. on them directly.
+
+------------------------------------------------------------------------
+
+## Scenario 2: Spot the Problems and Fix Them
+
+Look at this table:
+
+| ID  | Age | Height (cm) | Weight_kg_stone |
+|-----|-----|-------------|-----------------|
+| S01 | 21  | 170         | 60kg            |
+| S02 | 19  | 165         | 9.5 stone       |
+
+**Identify issues**
+
+-   `Weight_kg_stone` mixes:
+    -   different **units** (kg vs stone),
+    -   text and numbers in the same column.
+-   It’s impossible to treat `Weight_kg_stone` as numeric reliably.
+
+**A tidy redesign**
+
+| ID  | Age | Height_cm | Weight_kg |
+|-----|-----|-----------|-----------|
+| S01 | 21  | 170       | 60        |
+| S02 | 19  | 165       | 60.3      |
+
+Here we:
+
+-   Chose **kilograms** as a single unit.
+-   Converted 9.5 stone → 60.3 kg (approx).
+-   Removed unit labels from the cells.
+-   Renamed the column to `Weight_kg` so unit is clear.
+
+This version can go straight into SPSS as numeric columns.
+
+------------------------------------------------------------------------
+
+## Variable Types & Why They Matter
+
+SPSS will ask you to declare each variable’s **type**.
+
+If you have thought about this in advance, it’s easy.\
+If not, SPSS will **guess**, and that can cause subtle errors.
+
+Common types in our context:
+
+-   **Numeric**
+    -   Continuous: `Yield_t_ha`, `PlantHeight_cm`, `SoilMoisture`.
+    -   Counts: `PlantsPerPlot`, `WeedsCount`.
+-   **Categorical (factor)**
+    -   `Fertiliser` (FertA, FertB, Control).
+    -   `Variety` (Var1, Var2, Var3).
+    -   `DoseGroup` (“Low”, “Medium”, “High”).
+-   **ID / Identifier**
+    -   `PlotID`, `StudentID`.
+    -   These often look like numbers but are used only to label, not to calculate.
+-   **Date/Time**
+    -   `MeasurementDate`, `HarvestDate`.
+-   **Spatial**
+    -   `x`, `y`, `Latitude`, `Longitude`.
+
+Choosing types correctly changes how SPSS:
+
+-   summarises,
+-   plots,
+-   and models your data.
+
+------------------------------------------------------------------------
+
+## Consequences of Wrong Types
+
+If you let SPSS misinterpret types:
+
+-   Numeric IDs treated as measurements:
+    -   SPSS calculates a “mean StudentID”, which is meaningless.
+-   Dates stored as text:
+    -   You cannot sort by date properly.
+    -   You cannot compute “days after sowing”.
+-   Categorical variables stored as text:
+    -   Harder to get nice group comparisons.
+-   Mixed content in a column:
+    -   SPSS may treat the whole thing as string, blocking numeric analyses.
+
+Correct types mean:
+
+-   SPSS output matches your mental model.
+-   Errors are easier to spot.
+-   You waste less time debugging.
+
+------------------------------------------------------------------------
+
+## Scenario 3: Classify Variable Types
+
+Consider these variables:
+
+1.  `StudentID` = "S001", "S002", …
+2.  `FertDose_kg_ha` = 0, 50, 100, 150
+3.  `Yield_t_ha` = 7.2, 5.8, …
+4.  `Fertiliser` = "FertA", "FertB", "Control"
+5.  `MeasurementDate` = 12/10/2025
+6.  `Latitude` = 52.12345
+
+**Reasoning**
+
+-   `StudentID` → **ID** (stored as text/string).
+-   `FertDose_kg_ha` → **Numeric** (continuous or discrete levels).
+-   `Yield_t_ha` → **Numeric** (continuous).
+-   `Fertiliser` → **Categorical** (nominal).
+-   `MeasurementDate` → **Date**.
+-   `Latitude` → **Numeric** (but conceptually a coordinate).
+
+Note:\
+`FertDose_kg_ha` could also be treated as **categorical** if you only care about comparing the four doses (0, 50, 100, 150) as groups.\
+The choice depends on the research question.
+
+------------------------------------------------------------------------
+
+## Formatting & Consistency: The Hidden Enemy
+
+Even with the right variables and types, **inconsistent formatting** can cause trouble:
+
+-   Multiple spellings for the same thing:
+    -   `"FertA"`, `"fert a"`, `"A"`.
+-   Mixed date formats:
+    -   `12/10/25`, `2025-10-12`, `"12 Oct 2025"`.
+-   Extra spaces:
+    -   `" FertB"`, `"FertB "` vs `"FertB"`.
+-   Numbers stored as text:
+    -   `"7.2"` vs `7.2` (SPSS may treat `"7.2"` as string).
+
+Good practice:
+
+-   Decide on **one clean, consistent code** for each category.
+-   Use a **single date format** (e.g. `YYYY-MM-DD`).
+-   Remove leading/trailing spaces.
+-   Ensure numeric columns contain only numbers and blanks.
+
+This makes SPSS imports smoother and errors easier to detect.
+
+------------------------------------------------------------------------
+
+## Scenario 4: Clean the Codes
+
+Imagine this raw fertiliser column:
+
+| Fertiliser_raw |
+|----------------|
+| fert a         |
+| FertA          |
+| A              |
+| Fertiliser B   |
+| fertb          |
+| FertB          |
+
+**A clean convention**
+
+We decide:
+
+-   Use `FertA` for all types of “fert a”.
+-   Use `FertB` for all types of “fert b”.
+
+We create a new column `Fertiliser`:
+
+| Fertiliser_raw | Fertiliser |
+|----------------|------------|
+| fert a         | FertA      |
+| FertA          | FertA      |
+| A              | FertA      |
+| Fertiliser B   | FertB      |
+| fertb          | FertB      |
+| FertB          | FertB      |
+
+This new column is what we will use in SPSS.
+
+Why is this important?
+
+-   Analyses like ANOVA expect **clear groups**.
+-   If you leave multiple codes, SPSS thinks you have 3 or 4 groups instead of 2.
+-   Clean codes make your output interpretable: “FertA vs FertB” instead of “FertA, fert a, A, Fertiliser B, fertb, FertB”.
+
+------------------------------------------------------------------------
+
+## Dates & Times: Special Trouble
+
+Dates are often messy because:
+
+-   Excel might auto-convert them.
+-   Different people type them differently.
+-   Some tools store them as numbers (days since a reference date).
+
+**Better approach**
+
+-   Use a clear, consistent format like `YYYY-MM-DD`:
+    -   2025-10-12, 2025-11-16, etc.
+-   Keep dates in a **dedicated column**, not mixed with text notes.
+-   If you need notes, create a separate text column.
+
+In SPSS you can then:
+
+-   Declare the column as a date type.
+-   Compute variables like “days after sowing” or “days after fertiliser application”.
+
+------------------------------------------------------------------------
+
+## Missing Data: How Is “Nothing” Stored?
+
+You will almost always have missing values.
+
+Common bad patterns:
+
+-   Mixing `"NA"`, `"missing"`, `"."`, `"—"`, `"???"` in the same column.
+-   Using `0` to mean “missing”, when zero could be a real value.
+
+This makes it hard for SPSS to understand what is **really** missing.
+
+**Better practice**
+
+-   Choose a simple rule:
+    -   Either leave missing cells **blank**, or
+    -   Use one consistent code such as `"NA"` and later tell SPSS that `"NA"` = missing.
+-   Keep the rule **documented** so future-you and others know what it means.
+
+------------------------------------------------------------------------
+
+## Scenario 5: Decide and Apply a Missing-Data Convention
+
+You have this soil moisture column:
+
+| SoilMoisture_raw |
+|------------------|
+| 22.3             |
+| 21.7             |
+| N/A              |
+| 0                |
+| missing          |
+| 19.8             |
+
+**Reasoning**
+
+-   `22.3`, `21.7`, `19.8` are clear numeric values.
+-   `N/A` and `"missing"` look like missing entries.
+-   `0` could be:
+    -   a real measurement (very dry),
+    -   or a code for “sensor failed” / “not measured”. You must check the experimental context.
+
+**Clean convention (example)**
+
+Let’s decide:
+
+-   True missing values should be **empty cells**.
+-   We treat `N/A` and `missing` as missing.
+-   We check with the experimenter:
+    -   If `0` in this dataset means “no measurement”, we should also treat it as missing.
+    -   If `0` can be a real value, we **keep 0** and only clean the text entries.
+
+A cleaned version might be:
+
+| SoilMoisture |
+|--------------|
+| 22.3         |
+| 21.7         |
+|              |
+| 0.0          |
+|              |
+| 19.8         |
+
+Now SPSS can read `SoilMoisture` as numeric, and we can optionally tell SPSS that blank cells are missing values.
+
+------------------------------------------------------------------------
+
+## Summary
+
+Today’s core ideas:
+
+-   Analytics is a **data science exercise**: you must understand your data before analysis.
+-   A dataset is a **table**; the key question is what **one row** represents.
+-   Tidy data gives us a **target shape**:
+    -   one variable per column,
+    -   one observation per row,
+    -   one value per cell.
+-   Variable **types and formatting** (codes, dates, missing values, units) strongly influence what SPSS can do.
+
+Before moving on, try to look at any dataset you have access to and ask:
+
+1.  What is one row?\
+2.  Which columns are numeric, categorical, ID, date?\
+3.  Which columns look messy or inconsistent?
+
+------------------------------------------------------------------------
+
+## Session 2
+
+### Data Layouts & Wrangling for Analysis
+
+------------------------------------------------------------------------
+
+## From “Clean” to “Well Laid Out”
+
+We now assume:
+
+-   Columns have sensible types.
+-   Codes and dates are consistent.
+-   Missing values are handled.
+
+Next questions:
+
+1.  Should the data be in **wide** or **long** format?
+2.  How does the layout affect:
+    -   t-tests,
+    -   ANOVA,
+    -   repeated-measures,
+    -   mixed models,
+    -   simple spatial analyses?
+
+We’ll answer these using the fertiliser example and related scenarios.
+
+------------------------------------------------------------------------
+
+## Wide vs Long: Basic Definitions
+
+**Wide format**
+
+-   One row per unit (e.g. per plot).
+-   Repeated measurements stored in **different columns**.
+
+Example (fertiliser trial):
+
+| PlotID | Fertiliser | Yield_Y1 | Yield_Y2 | Yield_Y3 |
+|--------|------------|----------|----------|----------|
+| 1      | FertA      | 7.2      | 7.8      | 8.0      |
+| 2      | FertB      | 5.8      | 6.0      | 6.2      |
+
+**Long format**
+
+-   One row per **unit–time** combination.
+-   Repeated measurements stacked in rows.
+
+Example:
+
+| PlotID | Fertiliser | Year | Yield_t_ha |
+|--------|------------|------|------------|
+| 1      | FertA      | 1    | 7.2        |
+| 1      | FertA      | 2    | 7.8        |
+| 1      | FertA      | 3    | 8.0        |
+| 2      | FertB      | 1    | 5.8        |
+| 2      | FertB      | 2    | 6.0        |
+| 2      | FertB      | 3    | 6.2        |
+
+Both can be correct; it depends on what analysis you want to do.
+
+------------------------------------------------------------------------
+
+## Scenario 6: What Is One Observation?
+
+**Wide table** (above):
+
+-   One row = one **plot**.
+-   The three yield values are hidden as three columns.
+
+**Long table**:
+
+-   One row = one **plot–year** combination.
+-   Year is now a **proper variable**.
+
+**Which layout is easier for…**
+
+-   Plotting yield vs year?\
+    → Long format: you can easily make a line plot of `Yield_t_ha` by `Year`, grouped by `PlotID` or `Fertiliser`.
+
+-   Adding a new year (Year 4)?
+
+    -   In wide format, you must add a new column `Yield_Y4`.
+    -   In long format, you add new rows with `Year = 4`.
+
+For repeated-measures and mixed models, the **long** layout is usually more flexible.
+
+------------------------------------------------------------------------
+
+## Tidy Data & Wide Repeated Measures
+
+Think back to the tidy rules.
+
+In the wide table:
+
+-   `Year` is **not** a separate column.
+-   Instead, year information is encoded in the column names (`Yield_Y1`, `Yield_Y2`, `Yield_Y3`).
+
+That means:
+
+-   The values of a conceptual variable “Year” are spread horizontally across multiple columns.
+-   This breaks the “one variable per column” idea.
+
+However:
+
+-   Many classic SPSS procedures (like repeated-measures ANOVA via GLM) expect this **wide** layout.
+-   So it’s important to understand both tidy principles **and** SPSS’s preferences.
+
+------------------------------------------------------------------------
+
+## Mapping Layouts to Analyses
+
+Different analyses “prefer” different layouts.
+
+| Analysis type | Typical layout in practice |
+|---------------------------------|---------------------------------------|
+| Between-groups t-test / ANOVA | Wide & tidy rows = independent units |
+| Paired t-test / RM ANOVA (classic GLM) | Wide, timepoints as separate columns |
+| Mixed models / longitudinal | Long, time as a column |
+| Basic spatial / spatio-temporal | Long, with coordinates & date/time |
+
+We want to be able to look at a research question and say:
+
+> “That analysis wants wide”\
+> or\
+> “That analysis wants long”.
+
+------------------------------------------------------------------------
+
+## Between-Groups t-test / One-Way ANOVA
+
+Goal: compare mean yield between fertiliser treatments (e.g. FertA vs FertB).
+
+Layout:
+
+| PlotID | Fertiliser | Yield_t_ha |
+|--------|------------|------------|
+| 1      | FertA      | 7.2        |
+| 2      | FertB      | 5.8        |
+| 3      | FertA      | 7.0        |
+| 4      | FertB      | 6.1        |
+
+-   One row = one plot (independent experimental unit).
+-   `Fertiliser` is the categorical grouping variable.
+-   `Yield_t_ha` is the numeric response.
+
+This layout is both:
+
+-   **long** (simple one-row-per-plot structure),
+-   and **tidy** (one variable per column, one plot per row).
+
+SPSS menus:
+
+-   `Analyze → Compare Means → Independent-Samples T Test`
+-   `Analyze → Compare Means → One-Way ANOVA`
+
+------------------------------------------------------------------------
+
+## Paired t-test / Classic Repeated Measures ANOVA
+
+Goal: compare yield **before and after** changing fertiliser on the same plots.
+
+SPSS-friendly **wide** layout:
+
+| PlotID | Fertiliser | Yield_Before | Yield_After |
+|--------|------------|--------------|-------------|
+| 1      | FertA      | 6.5          | 7.2         |
+| 2      | FertB      | 5.3          | 5.9         |
+
+-   One row = one plot.
+-   `Yield_Before` and `Yield_After` are two measurements on the same plot.
+
+SPSS menus:
+
+-   Paired t-test:\
+    `Analyze → Compare Means → Paired-Samples T Test`
+-   Repeated Measures ANOVA (more timepoints):\
+    `Analyze → General Linear Model → Repeated Measures…`
+
+Here, SPSS expects separate columns for each timepoint.\
+Even though this is not “tidy”, it is **the format SPSS GLM wants**.
+
+------------------------------------------------------------------------
+
+## Mixed Models & Longitudinal Data
+
+Goal: analyse yield patterns over several years, allowing:
+
+-   different starting yields per plot,
+-   different growth trends over time.
+
+Better in **long** format:
+
+| PlotID | Fertiliser | Year | Yield_t_ha |
+|--------|------------|------|------------|
+| 1      | FertA      | 1    | 7.2        |
+| 1      | FertA      | 2    | 7.8        |
+| 1      | FertA      | 3    | 8.0        |
+| 2      | FertB      | 1    | 5.8        |
+| 2      | FertB      | 2    | 6.0        |
+| 2      | FertB      | 3    | 6.2        |
+
+-   One row = one PlotID–Year observation.
+-   `Year` is a factor or numeric covariate.
+-   This layout works well for **mixed models** where `PlotID` can be a random effect.
+
+SPSS menu:
+
+-   `Analyze → Mixed Models → Linear…`\
+    (This dialog expects data in long format.)
+
+------------------------------------------------------------------------
+
+## Spatial and Spatio-Temporal Data
+
+Suppose we also record soil moisture with coordinates:
+
+| PlotID | Fertiliser | Date       | x     | y     | SoilMoisture |
+|--------|------------|------------|-------|-------|--------------|
+| 1      | FertA      | 2025-10-01 | 123.4 | 456.7 | 22.3         |
+| 1      | FertA      | 2025-10-15 | 123.4 | 456.7 | 21.7         |
+| 2      | FertB      | 2025-10-01 | 130.0 | 460.0 | 19.8         |
+
+Here:
+
+-   One row = one measurement at a particular **plot, date, and location**.
+-   `x`, `y` (or `Latitude`, `Longitude`) give spatial information.
+-   `Date` gives temporal information.
+
+This is naturally **long**:
+
+-   multiple rows per plot,
+-   multiple dates.
+
+Such a layout works well in:
+
+-   SPSS (for simple models),
+-   GIS software,
+-   R/Python geospatial libraries.
+
+------------------------------------------------------------------------
+
+## Scenario 7: Choose a Layout
+
+Consider three scenarios:
+
+1.  **Scenario A:** One exam score per student; compare scores between two teaching methods (Method1 vs Method2).
+2.  **Scenario B:** Yield measured at 0, 3, and 6 months after fertiliser application on the same plots, comparing FertA vs FertB.
+3.  **Scenario C:** Soil moisture measured weekly at multiple GPS locations in a fertiliser trial field.
+
+**Reasoning**
+
+-   Scenario A:
+    -   One row = one student.
+    -   Columns: `StudentID`, `Method`, `Score`.
+    -   Layout: wide & tidy (one measurement per row).
+    -   Analysis: t-test or one-way ANOVA.
+-   Scenario B:
+    -   For classic SPSS repeated-measures:
+        -   Wide layout with `Yield_0`, `Yield_3`, `Yield_6`.
+    -   For mixed models:
+        -   Long layout with columns `PlotID`, `Fertiliser`, `Month`, `Yield_t_ha`.
+    -   Both are useful, depending on the method.
+-   Scenario C:
+    -   One row = one location–date combination.
+    -   Columns: `LocationID`, `x`, `y`, `Date`, `Fertiliser`, `SoilMoisture`.
+    -   Layout: long (spatio-temporal).
+    -   Could use mixed models or spatial methods.
+
+------------------------------------------------------------------------
+
+## Wrangling in Spreadsheets: Reshaping
+
+Even though SPSS can reshape data, it’s important to understand **conceptually** what reshaping means.
+
+Common tasks:
+
+1.  **Wide → Long**
+    -   Spread-out repeated measurements become stacked.
+    -   Example: `Yield_Y1`, `Yield_Y2`, `Yield_Y3` → `Year`, `Yield_t_ha`.
+2.  **Long → Wide**
+    -   Stacked values are separated into columns.
+    -   Example: `Group`, `Count` → `Count_Tillers`, `Count_Weeds`, etc.
+3.  **Concatenating variables**
+    -   Combine `FarmID`, `Field`, `Plot` into one ID.
+4.  **Aggregating**
+    -   Subsample-level data → plot means or treatment means.
+
+Understanding these concepts will help you use any software more confidently.
+
+------------------------------------------------------------------------
+
+## Scenario 8: Wide → Long (Conceptual)
+
+Start from this **wide** table:
+
+| PlotID | Fertiliser | Yield_Y1 | Yield_Y2 | Yield_Y3 |
+|--------|------------|----------|----------|----------|
+| 1      | FertA      | 7.2      | 7.8      | 8.0      |
+| 2      | FertB      | 5.8      | 6.0      | 6.2      |
+
+**Design the long version**
+
+We want columns:
+
+-   `PlotID`
+-   `Fertiliser`
+-   `Year`
+-   `Yield_t_ha`
+
+The long table would be:
+
+| PlotID | Fertiliser | Year | Yield_t_ha |
+|--------|------------|------|------------|
+| 1      | FertA      | 1    | 7.2        |
+| 1      | FertA      | 2    | 7.8        |
+| 1      | FertA      | 3    | 8.0        |
+| 2      | FertB      | 1    | 5.8        |
+| 2      | FertB      | 2    | 6.0        |
+| 2      | FertB      | 3    | 6.2        |
+
+Reasoning:
+
+-   Each plot has 3 years → 3 rows per plot.
+-   `Year` is derived from the original column names (`Y1`, `Y2`, `Y3`).
+-   `Yield_t_ha` holds the yield value from the respective year.
+
+------------------------------------------------------------------------
+
+## Scenario 9: Long → Wide (Conceptual)
+
+Start from this **long** dataset:
+
+| PlotID | Fertiliser | Group      | Count |
+|--------|------------|------------|-------|
+| 1      | FertA      | Tillers    | 32    |
+| 1      | FertA      | Weeds      | 5     |
+| 1      | FertA      | DeadPlants | 2     |
+| 2      | FertB      | Tillers    | 28    |
+| 2      | FertB      | Weeds      | 9     |
+| 2      | FertB      | DeadPlants | 4     |
+
+We want a **wide** version with one row per plot:
+
+| PlotID | Fertiliser | Count_Tillers | Count_Weeds | Count_DeadPlants |
+|--------|------------|---------------|-------------|------------------|
+| 1      | FertA      | 32            | 5           | 2                |
+| 2      | FertB      | 28            | 9           | 4                |
+
+Reasoning:
+
+-   Each `Group` becomes its own column.
+-   `Count` values go into the appropriate column based on `Group`.
+-   We still keep `PlotID` and `Fertiliser` as identifying columns.
+
+This layout might be useful for some multivariate procedures or for simple descriptive comparisons of counts.
+
+------------------------------------------------------------------------
+
+## Concatenating Variables: Creating New IDs
+
+Sometimes you need a **unique identifier** that combines several columns.
+
+Example:
+
+-   `FarmID` = "F01"
+-   `Field` = "North"
+-   `Plot` = "P3"
+-   `Year` = 2025
+
+You can create:
+
+-   `Farm_Field_Plot_Year` = `"F01_North_P3_2025"`
+
+In a spreadsheet, a formula might look like:
+
+-   `=FarmID & "_" & Field & "_" & Plot & "_" & Year`
+
+Why this helps:
+
+-   Makes sure each row has a **unique key**.
+-   Helps when merging data from different files (e.g. weather + yield).
+-   Makes it clear which measurements belong together.
+
+In SPSS, you can do the same in **Transform → Compute Variable…**.
+
+------------------------------------------------------------------------
+
+## Aggregating: From Subsamples to Plot Means
+
+Starting data:
+
+| PlotID | Subsample | Fertiliser | Yield_t_ha |
+|--------|-----------|------------|------------|
+| 1      | 1         | FertA      | 7.2        |
+| 1      | 2         | FertA      | 6.9        |
+| 2      | 1         | FertB      | 5.8        |
+| 2      | 2         | FertB      | 6.1        |
+
+Sometimes the analysis is at **plot level**, not subsample level.\
+We might want:
+
+| PlotID | Fertiliser | Yield_mean_t_ha |
+|--------|------------|-----------------|
+| 1      | FertA      | 7.05            |
+| 2      | FertB      | 5.95            |
+
+How we got `7.05`:
+
+-   Mean of 7.2 and 6.9 → `(7.2 + 6.9) / 2 = 7.05`.
+
+Conceptually:
+
+-   We **group** by `PlotID` (and `Fertiliser`).
+-   We compute the **mean** of `Yield_t_ha` within each group.
+
+In Excel: use a **pivot table** or `AVERAGEIF(S)`.
+
+In SPSS: use **Data → Aggregate…**.
+
+------------------------------------------------------------------------
+
+## Scenario 10: Apply These Ideas to Your Own Project
+
+Think about a real or hypothetical project you might do.
+
+**Step 1 – Define your unit**
+
+-   Decide: what is **one row**?
+    -   One student?
+    -   One plot?
+    -   One plant at one time?
+
+**Step 2 – List variables**
+
+-   Write down 5–10 variables you expect (e.g. treatment, yield, height, date).
+-   For each, decide:
+    -   Type: numeric, categorical, ID, date, spatial.
+    -   Any formatting issues to watch out for (units, spelling, missing values).
+
+**Step 3 – Choose a layout**
+
+-   Ask: will I only have **one measurement per unit**, or **repeated measures**?
+-   Decide:
+    -   Mostly **wide** (simple cross-sectional data), or
+    -   Mostly **long** (repeated over time or conditions), or
+    -   Both (e.g. wide for SPSS GLM, long for mixed models).
+
+Write down your choice and a sentence explaining why.
+
+------------------------------------------------------------------------
+
+## From Spreadsheet to SPSS: The Big Picture
+
+A robust workflow looks like this:
+
+1.  **Plan the dataset**
+    -   Decide your unit of observation (what is a row).
+    -   Decide what variables you need (what are the columns).
+2.  **Build and clean in Excel/Sheets**
+    -   Make the table roughly tidy:
+        -   one variable per column,
+        -   one observation per row,
+        -   one value per cell.
+    -   Clean types, codes, dates, and missing values.
+3.  **Choose layout (wide vs long)**
+    -   Based on the analyses you have in mind.
+4.  **Import into SPSS**
+    -   Declare variable types and labels.
+    -   Define missing values where appropriate.
+5.  **Use SPSS mainly for**
+    -   running tests and models,
+    -   checking assumptions,
+    -   interpreting outputs and producing graphs.
+
+SPSS becomes a **statistics engine**, not a “data rescue” tool.
+
+------------------------------------------------------------------------
+
+## Final Reflection
+
+Take a moment to answer these for yourself:
+
+1.  **“One thing I understand now about data structure that I didn’t appreciate before is…”**\
+    (For example, what one row really means, or why mixing units is dangerous.)
+
+2.  **“One change I will make in how I create or store my own data is…”**\
+    (For example, always using `YYYY-MM-DD` dates, or keeping IDs as text.)
+
+3.  **“One question I still have about data prep or layouts is…”**\
+    (This can guide what you ask in SPSS lab sessions.)
+
+Writing these down will help you remember the key takeaways.
+
+------------------------------------------------------------------------
+
+## Take-Home Message
+
+-   Good data structure and formatting **dramatically reduce cognitive load** in SPSS.
+-   As analysts doing data science, you should feel comfortable:
+    -   identifying what one row and one column represent,
+    -   choosing appropriate variable types,
+    -   planning wide vs long layouts for different analyses.
+-   The better your data prep **before** SPSS, the more time you can spend on the interesting part:
+    -   **interpreting results** and
+    -   **answering real questions** with your data.
+
+Next step:\
+We will open SPSS and apply these principles to real datasets so that the software feels like a helper, not a hurdle.

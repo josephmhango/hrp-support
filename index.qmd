@@ -1,0 +1,26 @@
+---
+title: "Home"
+---
+
+## Honours Research Project
+
+![](img/hrp.png){fig-alt="C7091 title slide" fig-align="center" width="400"}
+
+Honours Research Project
+
+Welcome to the GitHub webpage for the statistics support of this module.
+Here you will find lecture notes and teaching materials for all your reading needs, as well as supporting resources.
+
+👉 Navigate the topics in order using the panel on the left.
+
+This space brings together:
+
+- Weekly lecture notes and readings
+
+- Practical guides
+
+- Links to open R-based statistical analysis content created at HAU
+
+Use these resources to work through the module step by step, reinforce your learning, and connect methods directly to your research projects.
+
+For any queries, contact [Joseph Mhango](https://www.harper-adams.ac.uk/general/staff/profile/201627/Joseph-Mhango/"Joseph's Faculty page").

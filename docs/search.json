@@ -1,0 +1,599 @@
+[
+  {
+    "objectID": "tidy.html#welcome-analytics-is-a-data-science-exercise",
+    "href": "tidy.html#welcome-analytics-is-a-data-science-exercise",
+    "title": "Data Foundations",
+    "section": "Welcome: Analytics is a Data Science Exercise",
+    "text": "Welcome: Analytics is a Data Science Exercise\nIn this module, you are not “just” SPSS button-clickers.\nAnalytics is a data science exercise:\n\nYou collect or receive data.\nYou decide how to store and organise it.\nYou choose which analyses are appropriate.\nYou interpret and communicate the results.\n\nSPSS (or R, or anything else) is just a tool.\nThe real power is in how well you understand your data.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#the-8020-rule-of-data-work",
+    "href": "tidy.html#the-8020-rule-of-data-work",
+    "title": "Data Foundations",
+    "section": "The 80–20 Rule of Data Work",
+    "text": "The 80–20 Rule of Data Work\nA common rule of thumb in data science:\n\n80% of the time is spent on data preparation,\n20% on modelling and analysis.\n\nWhat “data preparation” includes:\n\nDesigning a sensible spreadsheet.\nCleaning and checking values.\nChoosing variable types and formats.\nCalculating/engineering features/variables\nReshaping the table to fit the analysis.\n\nIf this part is done well:\n\nSPSS feels much easier.\nOutputs make more sense.\nYou spend your energy on interpretation, not firefighting.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#why-start-before-spss",
+    "href": "tidy.html#why-start-before-spss",
+    "title": "Data Foundations",
+    "section": "Why Start Before SPSS?",
+    "text": "Why Start Before SPSS?\nTrying to learn all of this at once:\n\nStatistics concepts,\nSPSS menus and options,\nData cleaning and reshaping,\n\n…is a recipe for overload.\nInstead we will:\n\nFirst understand what good data looks like using tables (Excel/Sheets).\nPractice spotting and fixing problems in small examples.\nThen move into SPSS where the focus is on modelling and interpreting.\n\nThe aim:\nWhen you open SPSS, the dataset already “makes sense in your head”.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#what-well-cover-in-this-series",
+    "href": "tidy.html#what-well-cover-in-this-series",
+    "title": "Data Foundations",
+    "section": "What We’ll Cover in This Series",
+    "text": "What We’ll Cover in This Series\n\nFoundations:\n\nWhat does one row represent?\nWhat does one column represent?\nVariable types and why they matter in SPSS.\nTidy data principles and common formatting traps.\n\nData layouts and wrangling for analysis:\n\nWide vs long layouts.\nWhich layouts suit t-tests, ANOVA, repeated measures, mixed models, and simple spatial/temporal data.\nBasic spreadsheet wrangling: reshaping, concatenating IDs, aggregating.\n\n\nLater sessions will apply these ideas in SPSS as part of the same series.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#how-well-work",
+    "href": "tidy.html#how-well-work",
+    "title": "Data Foundations",
+    "section": "How We’ll Work",
+    "text": "How We’ll Work\nThese slides are student-facing:\n\nYou can follow them independently.\nExplanations are written to you, not as notes to a lecturer.\n\nYou will:\n\nRead through small examples.\nDiscuss interactive scenarios as a whole group.\nCompare and refine reasoning together on the same slide.\n\nYou can treat this like a guided workbook on data foundations.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#what-is-a-dataset",
+    "href": "tidy.html#what-is-a-dataset",
+    "title": "Data Foundations",
+    "section": "What Is a Dataset?",
+    "text": "What Is a Dataset?",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#data-constructs-cross-sectional",
+    "href": "tidy.html#data-constructs-cross-sectional",
+    "title": "Data Foundations",
+    "section": "Data Constructs: Cross-sectional",
+    "text": "Data Constructs: Cross-sectional\nDefinition:\n\nMeasurements on many units at a single point in time.\nUnits are independent (e.g., students, plots, households).\n\nExamples:\n\nExam scores of different students on one exam date.\nYield per plot at harvest this season.\n\nSimple shape (one row per unit):\n\n\n\nStudentID\nMethod\nScore\n\n\n\n\nS01\nA\n78\n\n\nS02\nB\n72\n\n\n\nImplications:\n\nUsually straightforward and “tidy by default”.\nWorks well with many analyses without reshaping.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#data-constructs-time-series",
+    "href": "tidy.html#data-constructs-time-series",
+    "title": "Data Foundations",
+    "section": "Data Constructs: Time Series",
+    "text": "Data Constructs: Time Series\nDefinition:\n\nMeasurements on one unit across time.\nFocus is on temporal patterns for a single subject/object.\n\nExamples:\n\nWeekly soil moisture for one sensor.\nMonthly sales for one shop.\n\nExample (one unit, long form):\n\n\n\nDate\nSoilMoisture\n\n\n\n\n2025-10-01\n22.3\n\n\n2025-10-08\n21.7\n\n\n2025-10-15\n19.8\n\n\n\nImplications:\n\nNaturally fits a long layout with a dedicated time variable.\nMany time-based plots and models expect a time column.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#data-constructs-panel-longitudinal",
+    "href": "tidy.html#data-constructs-panel-longitudinal",
+    "title": "Data Foundations",
+    "section": "Data Constructs: Panel / Longitudinal",
+    "text": "Data Constructs: Panel / Longitudinal\nDefinition:\n\nMeasurements on many units tracked over time.\nAlso called “repeated measures” or “longitudinal” data.\n\nExamples:\n\nYield for multiple plots measured each year.\nStudent test scores collected each term for the same students.\n\nExample (many units over time, long form):\n\n\n\nPlotID\nYear\nYield_t_ha\n\n\n\n\n1\n1\n7.2\n\n\n1\n2\n7.8\n\n\n2\n1\n5.8\n\n\n2\n2\n6.0\n\n\n\nImplications:\n\nLong layout is flexible for mixed models and many visualisations.\nSome SPSS procedures (classic repeated-measures GLM) prefer wide.\nWe will map these choices in “Wide vs Long” and “Mapping Layouts to Analyses”.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#why-constructs-matter-for-layouts",
+    "href": "tidy.html#why-constructs-matter-for-layouts",
+    "title": "Data Foundations",
+    "section": "Why Constructs Matter for Layouts",
+    "text": "Why Constructs Matter for Layouts\n\nCross-sectional → usually simple tables; layout is often already tidy.\nTime series (one unit over time) → long layout with a time column is natural.\nPanel/longitudinal (many units over time) → long layout is versatile; some procedures want wide.\nKnowing your construct helps you choose:\n\nvariable types (e.g., treat time as a variable),\ndata layout (wide vs long) for the intended analysis.\n\n\nWe will build on this in:\n\n“Wide vs Long: Basic Definitions”\n“Mapping Layouts to Analyses”",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#data-as-a-table",
+    "href": "tidy.html#data-as-a-table",
+    "title": "Data Foundations",
+    "section": "Data as a Table",
+    "text": "Data as a Table\nThink of a dataset as a simple table:\n\nRows (horizontal)\n\nColumns (vertical)\n\nCells (single entry where a row and column meet)\n\nThe most important question:\n\nWhat does one row represent?\n→ This is your unit of observation.\n\nExamples of possible units:\n\nOne student\nOne field plot\nOne fertiliser treatment on a plot at one time\nOne plant\nOne sensor reading at one location and time\n\nOnce you know what one row is, everything else becomes easier.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#scenario-1-identify-the-unit",
+    "href": "tidy.html#scenario-1-identify-the-unit",
+    "title": "Data Foundations",
+    "section": "Scenario 1: Identify the Unit",
+    "text": "Scenario 1: Identify the Unit\nYou see this table from a fertiliser trial:\n\n\n\nPlot\nFertiliser\nYield_t_ha\nPlantHeight_cm\n\n\n\n\n1\nFertA\n7.2\n85\n\n\n1\nFertA\n6.9\n83\n\n\n2\nFertB\n5.8\n78\n\n\n2\nFertB\n6.1\n80\n\n\n\nThink:\n\nWhat is one row here?\nWhy is Plot 1 shown twice?\nWhat might the repeated rows mean?\n\nReasoning\n\nOne row = one subsample (or one quadrat) within a plot.\nPlot 1 appears twice because we have two subsamples within Plot 1.\nPlot is the higher-level unit; subsamples are lower-level observations nested within plots.\n\nSo you could say:\n\n“In this dataset, each row is one subsample measured within a plot.”",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#variables-what-are-columns",
+    "href": "tidy.html#variables-what-are-columns",
+    "title": "Data Foundations",
+    "section": "Variables: What Are Columns?",
+    "text": "Variables: What Are Columns?\nEach column should represent a single variable.\nFor the fertiliser table:\n\nPlot – ID code for the plot.\nFertiliser – fertiliser treatment applied (FertA, FertB).\nYield_t_ha – grain yield in tonnes per hectare.\nPlantHeight_cm – average plant height in centimetres.\n\nWe usually group variables into:\n\nNumeric (continuous or counts)\nCategorical (groups/labels)\nID / key (codes that identify things)\nDate/time\nSpatial coordinates\n\nKnowing which is which tells SPSS how to treat each column.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#tidy-data-the-three-rules",
+    "href": "tidy.html#tidy-data-the-three-rules",
+    "title": "Data Foundations",
+    "section": "Tidy Data: The Three Rules",
+    "text": "Tidy Data: The Three Rules\nWe will use tidy data as a target shape:\n\nEach variable forms one column.\nEach observation forms one row.\nEach value forms a single cell.\n\nThis is not a law, but a helpful mental model.\nIf you follow these rules:\n\nIt’s easier to reason about your data.\nMost software (SPSS, R, Python) behaves more predictably.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#messy-example-multiple-values-in-one-cell",
+    "href": "tidy.html#messy-example-multiple-values-in-one-cell",
+    "title": "Data Foundations",
+    "section": "Messy Example: Multiple Values in One Cell",
+    "text": "Messy Example: Multiple Values in One Cell\nConsider this version of the fertiliser data:\n\n\n\nPlot\nFertiliser\nYield_and_Height\n\n\n\n\n1\nFertA\n7.2 t/ha; 85 cm\n\n\n2\nFertB\n5.8 t/ha; 78 cm\n\n\n\nProblems:\n\nYield_and_Height actually contains two variables:\n\nYield\nPlant height\n\nUnits (t/ha, cm) are mixed into the values.\nYou cannot easily ask SPSS to:\n\ncalculate mean yield,\nplot height vs yield, because SPSS sees just one messy text column.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#fixing-the-messy-example",
+    "href": "tidy.html#fixing-the-messy-example",
+    "title": "Data Foundations",
+    "section": "Fixing the Messy Example",
+    "text": "Fixing the Messy Example\nA cleaner version:\n\n\n\nPlot\nFertiliser\nYield_t_ha\nPlantHeight_cm\n\n\n\n\n1\nFertA\n7.2\n85\n\n\n2\nFertB\n5.8\n78\n\n\n\nWhat changed?\n\nTwo variables are now separate:\n\nYield_t_ha\nPlantHeight_cm\n\nEach cell has a single numeric value.\nUnits are moved into the column names (or into documentation).\n\nThis now follows the tidy rules and will behave nicely in SPSS:\n\nYield_t_ha and PlantHeight_cm can be declared as numeric.\nYou can run t-tests, ANOVA, plots, etc. on them directly.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#scenario-2-spot-the-problems-and-fix-them",
+    "href": "tidy.html#scenario-2-spot-the-problems-and-fix-them",
+    "title": "Data Foundations",
+    "section": "Scenario 2: Spot the Problems and Fix Them",
+    "text": "Scenario 2: Spot the Problems and Fix Them\nLook at this table:\n\n\n\nID\nAge\nHeight (cm)\nWeight_kg_stone\n\n\n\n\nS01\n21\n170\n60kg\n\n\nS02\n19\n165\n9.5 stone\n\n\n\nIdentify issues\n\nWeight_kg_stone mixes:\n\ndifferent units (kg vs stone),\ntext and numbers in the same column.\n\nIt’s impossible to treat Weight_kg_stone as numeric reliably.\n\nA tidy redesign\n\n\n\nID\nAge\nHeight_cm\nWeight_kg\n\n\n\n\nS01\n21\n170\n60\n\n\nS02\n19\n165\n60.3\n\n\n\nHere we:\n\nChose kilograms as a single unit.\nConverted 9.5 stone → 60.3 kg (approx).\nRemoved unit labels from the cells.\nRenamed the column to Weight_kg so unit is clear.\n\nThis version can go straight into SPSS as numeric columns.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#variable-types-why-they-matter",
+    "href": "tidy.html#variable-types-why-they-matter",
+    "title": "Data Foundations",
+    "section": "Variable Types & Why They Matter",
+    "text": "Variable Types & Why They Matter\nSPSS will ask you to declare each variable’s type.\nIf you have thought about this in advance, it’s easy.\nIf not, SPSS will guess, and that can cause subtle errors.\nCommon types in our context:\n\nNumeric\n\nContinuous: Yield_t_ha, PlantHeight_cm, SoilMoisture.\nCounts: PlantsPerPlot, WeedsCount.\n\nCategorical (factor)\n\nFertiliser (FertA, FertB, Control).\nVariety (Var1, Var2, Var3).\nDoseGroup (“Low”, “Medium”, “High”).\n\nID / Identifier\n\nPlotID, StudentID.\nThese often look like numbers but are used only to label, not to calculate.\n\nDate/Time\n\nMeasurementDate, HarvestDate.\n\nSpatial\n\nx, y, Latitude, Longitude.\n\n\nChoosing types correctly changes how SPSS:\n\nsummarises,\nplots,\nand models your data.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#consequences-of-wrong-types",
+    "href": "tidy.html#consequences-of-wrong-types",
+    "title": "Data Foundations",
+    "section": "Consequences of Wrong Types",
+    "text": "Consequences of Wrong Types\nIf you let SPSS misinterpret types:\n\nNumeric IDs treated as measurements:\n\nSPSS calculates a “mean StudentID”, which is meaningless.\n\nDates stored as text:\n\nYou cannot sort by date properly.\nYou cannot compute “days after sowing”.\n\nCategorical variables stored as text:\n\nHarder to get nice group comparisons.\n\nMixed content in a column:\n\nSPSS may treat the whole thing as string, blocking numeric analyses.\n\n\nCorrect types mean:\n\nSPSS output matches your mental model.\nErrors are easier to spot.\nYou waste less time debugging.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#scenario-3-classify-variable-types",
+    "href": "tidy.html#scenario-3-classify-variable-types",
+    "title": "Data Foundations",
+    "section": "Scenario 3: Classify Variable Types",
+    "text": "Scenario 3: Classify Variable Types\nConsider these variables:\n\nStudentID = “S001”, “S002”, …\nFertDose_kg_ha = 0, 50, 100, 150\nYield_t_ha = 7.2, 5.8, …\nFertiliser = “FertA”, “FertB”, “Control”\nMeasurementDate = 12/10/2025\nLatitude = 52.12345\n\nReasoning\n\nStudentID → ID (stored as text/string).\nFertDose_kg_ha → Numeric (continuous or discrete levels).\nYield_t_ha → Numeric (continuous).\nFertiliser → Categorical (nominal).\nMeasurementDate → Date.\nLatitude → Numeric (but conceptually a coordinate).\n\nNote:\nFertDose_kg_ha could also be treated as categorical if you only care about comparing the four doses (0, 50, 100, 150) as groups.\nThe choice depends on the research question.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#formatting-consistency-the-hidden-enemy",
+    "href": "tidy.html#formatting-consistency-the-hidden-enemy",
+    "title": "Data Foundations",
+    "section": "Formatting & Consistency: The Hidden Enemy",
+    "text": "Formatting & Consistency: The Hidden Enemy\nEven with the right variables and types, inconsistent formatting can cause trouble:\n\nMultiple spellings for the same thing:\n\n\"FertA\", \"fert a\", \"A\".\n\nMixed date formats:\n\n12/10/25, 2025-10-12, \"12 Oct 2025\".\n\nExtra spaces:\n\n\" FertB\", \"FertB \" vs \"FertB\".\n\nNumbers stored as text:\n\n\"7.2\" vs 7.2 (SPSS may treat \"7.2\" as string).\n\n\nGood practice:\n\nDecide on one clean, consistent code for each category.\nUse a single date format (e.g. YYYY-MM-DD).\nRemove leading/trailing spaces.\nEnsure numeric columns contain only numbers and blanks.\n\nThis makes SPSS imports smoother and errors easier to detect.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#scenario-4-clean-the-codes",
+    "href": "tidy.html#scenario-4-clean-the-codes",
+    "title": "Data Foundations",
+    "section": "Scenario 4: Clean the Codes",
+    "text": "Scenario 4: Clean the Codes\nImagine this raw fertiliser column:\n\n\n\nFertiliser_raw\n\n\n\n\nfert a\n\n\nFertA\n\n\nA\n\n\nFertiliser B\n\n\nfertb\n\n\nFertB\n\n\n\nA clean convention\nWe decide:\n\nUse FertA for all types of “fert a”.\nUse FertB for all types of “fert b”.\n\nWe create a new column Fertiliser:\n\n\n\nFertiliser_raw\nFertiliser\n\n\n\n\nfert a\nFertA\n\n\nFertA\nFertA\n\n\nA\nFertA\n\n\nFertiliser B\nFertB\n\n\nfertb\nFertB\n\n\nFertB\nFertB\n\n\n\nThis new column is what we will use in SPSS.\nWhy is this important?\n\nAnalyses like ANOVA expect clear groups.\nIf you leave multiple codes, SPSS thinks you have 3 or 4 groups instead of 2.\nClean codes make your output interpretable: “FertA vs FertB” instead of “FertA, fert a, A, Fertiliser B, fertb, FertB”.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#dates-times-special-trouble",
+    "href": "tidy.html#dates-times-special-trouble",
+    "title": "Data Foundations",
+    "section": "Dates & Times: Special Trouble",
+    "text": "Dates & Times: Special Trouble\nDates are often messy because:\n\nExcel might auto-convert them.\nDifferent people type them differently.\nSome tools store them as numbers (days since a reference date).\n\nBetter approach\n\nUse a clear, consistent format like YYYY-MM-DD:\n\n2025-10-12, 2025-11-16, etc.\n\nKeep dates in a dedicated column, not mixed with text notes.\nIf you need notes, create a separate text column.\n\nIn SPSS you can then:\n\nDeclare the column as a date type.\nCompute variables like “days after sowing” or “days after fertiliser application”.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#missing-data-how-is-nothing-stored",
+    "href": "tidy.html#missing-data-how-is-nothing-stored",
+    "title": "Data Foundations",
+    "section": "Missing Data: How Is “Nothing” Stored?",
+    "text": "Missing Data: How Is “Nothing” Stored?\nYou will almost always have missing values.\nCommon bad patterns:\n\nMixing \"NA\", \"missing\", \".\", \"—\", \"???\" in the same column.\nUsing 0 to mean “missing”, when zero could be a real value.\n\nThis makes it hard for SPSS to understand what is really missing.\nBetter practice\n\nChoose a simple rule:\n\nEither leave missing cells blank, or\nUse one consistent code such as \"NA\" and later tell SPSS that \"NA\" = missing.\n\nKeep the rule documented so future-you and others know what it means.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#scenario-5-decide-and-apply-a-missing-data-convention",
+    "href": "tidy.html#scenario-5-decide-and-apply-a-missing-data-convention",
+    "title": "Data Foundations",
+    "section": "Scenario 5: Decide and Apply a Missing-Data Convention",
+    "text": "Scenario 5: Decide and Apply a Missing-Data Convention\nYou have this soil moisture column:\n\n\n\nSoilMoisture_raw\n\n\n\n\n22.3\n\n\n21.7\n\n\nN/A\n\n\n0\n\n\nmissing\n\n\n19.8\n\n\n\nReasoning\n\n22.3, 21.7, 19.8 are clear numeric values.\nN/A and \"missing\" look like missing entries.\n0 could be:\n\na real measurement (very dry),\nor a code for “sensor failed” / “not measured”. You must check the experimental context.\n\n\nClean convention (example)\nLet’s decide:\n\nTrue missing values should be empty cells.\nWe treat N/A and missing as missing.\nWe check with the experimenter:\n\nIf 0 in this dataset means “no measurement”, we should also treat it as missing.\nIf 0 can be a real value, we keep 0 and only clean the text entries.\n\n\nA cleaned version might be:\n\n\n\nSoilMoisture\n\n\n\n\n22.3\n\n\n21.7\n\n\n\n\n\n0.0\n\n\n\n\n\n19.8\n\n\n\nNow SPSS can read SoilMoisture as numeric, and we can optionally tell SPSS that blank cells are missing values.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#summary",
+    "href": "tidy.html#summary",
+    "title": "Data Foundations",
+    "section": "Summary",
+    "text": "Summary\nToday’s core ideas:\n\nAnalytics is a data science exercise: you must understand your data before analysis.\nA dataset is a table; the key question is what one row represents.\nTidy data gives us a target shape:\n\none variable per column,\none observation per row,\none value per cell.\n\nVariable types and formatting (codes, dates, missing values, units) strongly influence what SPSS can do.\n\nBefore moving on, try to look at any dataset you have access to and ask:\n\nWhat is one row?\n\nWhich columns are numeric, categorical, ID, date?\n\nWhich columns look messy or inconsistent?",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#session-2",
+    "href": "tidy.html#session-2",
+    "title": "Data Foundations",
+    "section": "Session 2",
+    "text": "Session 2\nData Layouts & Wrangling for Analysis",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#from-clean-to-well-laid-out",
+    "href": "tidy.html#from-clean-to-well-laid-out",
+    "title": "Data Foundations",
+    "section": "From “Clean” to “Well Laid Out”",
+    "text": "From “Clean” to “Well Laid Out”\nWe now assume:\n\nColumns have sensible types.\nCodes and dates are consistent.\nMissing values are handled.\n\nNext questions:\n\nShould the data be in wide or long format?\nHow does the layout affect:\n\nt-tests,\nANOVA,\nrepeated-measures,\nmixed models,\nsimple spatial analyses?\n\n\nWe’ll answer these using the fertiliser example and related scenarios.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#wide-vs-long-basic-definitions",
+    "href": "tidy.html#wide-vs-long-basic-definitions",
+    "title": "Data Foundations",
+    "section": "Wide vs Long: Basic Definitions",
+    "text": "Wide vs Long: Basic Definitions\nWide format\n\nOne row per unit (e.g. per plot).\nRepeated measurements stored in different columns.\n\nExample (fertiliser trial):\n\n\n\nPlotID\nFertiliser\nYield_Y1\nYield_Y2\nYield_Y3\n\n\n\n\n1\nFertA\n7.2\n7.8\n8.0\n\n\n2\nFertB\n5.8\n6.0\n6.2\n\n\n\nLong format\n\nOne row per unit–time combination.\nRepeated measurements stacked in rows.\n\nExample:\n\n\n\nPlotID\nFertiliser\nYear\nYield_t_ha\n\n\n\n\n1\nFertA\n1\n7.2\n\n\n1\nFertA\n2\n7.8\n\n\n1\nFertA\n3\n8.0\n\n\n2\nFertB\n1\n5.8\n\n\n2\nFertB\n2\n6.0\n\n\n2\nFertB\n3\n6.2\n\n\n\nBoth can be correct; it depends on what analysis you want to do.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#scenario-6-what-is-one-observation",
+    "href": "tidy.html#scenario-6-what-is-one-observation",
+    "title": "Data Foundations",
+    "section": "Scenario 6: What Is One Observation?",
+    "text": "Scenario 6: What Is One Observation?\nWide table (above):\n\nOne row = one plot.\nThe three yield values are hidden as three columns.\n\nLong table:\n\nOne row = one plot–year combination.\nYear is now a proper variable.\n\nWhich layout is easier for…\n\nPlotting yield vs year?\n→ Long format: you can easily make a line plot of Yield_t_ha by Year, grouped by PlotID or Fertiliser.\nAdding a new year (Year 4)?\n\nIn wide format, you must add a new column Yield_Y4.\nIn long format, you add new rows with Year = 4.\n\n\nFor repeated-measures and mixed models, the long layout is usually more flexible.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#tidy-data-wide-repeated-measures",
+    "href": "tidy.html#tidy-data-wide-repeated-measures",
+    "title": "Data Foundations",
+    "section": "Tidy Data & Wide Repeated Measures",
+    "text": "Tidy Data & Wide Repeated Measures\nThink back to the tidy rules.\nIn the wide table:\n\nYear is not a separate column.\nInstead, year information is encoded in the column names (Yield_Y1, Yield_Y2, Yield_Y3).\n\nThat means:\n\nThe values of a conceptual variable “Year” are spread horizontally across multiple columns.\nThis breaks the “one variable per column” idea.\n\nHowever:\n\nMany classic SPSS procedures (like repeated-measures ANOVA via GLM) expect this wide layout.\nSo it’s important to understand both tidy principles and SPSS’s preferences.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#mapping-layouts-to-analyses",
+    "href": "tidy.html#mapping-layouts-to-analyses",
+    "title": "Data Foundations",
+    "section": "Mapping Layouts to Analyses",
+    "text": "Mapping Layouts to Analyses\nDifferent analyses “prefer” different layouts.\n\n\n\n\n\n\n\nAnalysis type\nTypical layout in practice\n\n\n\n\nBetween-groups t-test / ANOVA\nWide & tidy rows = independent units\n\n\nPaired t-test / RM ANOVA (classic GLM)\nWide, timepoints as separate columns\n\n\nMixed models / longitudinal\nLong, time as a column\n\n\nBasic spatial / spatio-temporal\nLong, with coordinates & date/time\n\n\n\nWe want to be able to look at a research question and say:\n\n“That analysis wants wide”\nor\n“That analysis wants long”.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#between-groups-t-test-one-way-anova",
+    "href": "tidy.html#between-groups-t-test-one-way-anova",
+    "title": "Data Foundations",
+    "section": "Between-Groups t-test / One-Way ANOVA",
+    "text": "Between-Groups t-test / One-Way ANOVA\nGoal: compare mean yield between fertiliser treatments (e.g. FertA vs FertB).\nLayout:\n\n\n\nPlotID\nFertiliser\nYield_t_ha\n\n\n\n\n1\nFertA\n7.2\n\n\n2\nFertB\n5.8\n\n\n3\nFertA\n7.0\n\n\n4\nFertB\n6.1\n\n\n\n\nOne row = one plot (independent experimental unit).\nFertiliser is the categorical grouping variable.\nYield_t_ha is the numeric response.\n\nThis layout is both:\n\nlong (simple one-row-per-plot structure),\nand tidy (one variable per column, one plot per row).\n\nSPSS menus:\n\nAnalyze → Compare Means → Independent-Samples T Test\nAnalyze → Compare Means → One-Way ANOVA",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#paired-t-test-classic-repeated-measures-anova",
+    "href": "tidy.html#paired-t-test-classic-repeated-measures-anova",
+    "title": "Data Foundations",
+    "section": "Paired t-test / Classic Repeated Measures ANOVA",
+    "text": "Paired t-test / Classic Repeated Measures ANOVA\nGoal: compare yield before and after changing fertiliser on the same plots.\nSPSS-friendly wide layout:\n\n\n\nPlotID\nFertiliser\nYield_Before\nYield_After\n\n\n\n\n1\nFertA\n6.5\n7.2\n\n\n2\nFertB\n5.3\n5.9\n\n\n\n\nOne row = one plot.\nYield_Before and Yield_After are two measurements on the same plot.\n\nSPSS menus:\n\nPaired t-test:\nAnalyze → Compare Means → Paired-Samples T Test\nRepeated Measures ANOVA (more timepoints):\nAnalyze → General Linear Model → Repeated Measures…\n\nHere, SPSS expects separate columns for each timepoint.\nEven though this is not “tidy”, it is the format SPSS GLM wants.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#mixed-models-longitudinal-data",
+    "href": "tidy.html#mixed-models-longitudinal-data",
+    "title": "Data Foundations",
+    "section": "Mixed Models & Longitudinal Data",
+    "text": "Mixed Models & Longitudinal Data\nGoal: analyse yield patterns over several years, allowing:\n\ndifferent starting yields per plot,\ndifferent growth trends over time.\n\nBetter in long format:\n\n\n\nPlotID\nFertiliser\nYear\nYield_t_ha\n\n\n\n\n1\nFertA\n1\n7.2\n\n\n1\nFertA\n2\n7.8\n\n\n1\nFertA\n3\n8.0\n\n\n2\nFertB\n1\n5.8\n\n\n2\nFertB\n2\n6.0\n\n\n2\nFertB\n3\n6.2\n\n\n\n\nOne row = one PlotID–Year observation.\nYear is a factor or numeric covariate.\nThis layout works well for mixed models where PlotID can be a random effect.\n\nSPSS menu:\n\nAnalyze → Mixed Models → Linear…\n(This dialog expects data in long format.)",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#spatial-and-spatio-temporal-data",
+    "href": "tidy.html#spatial-and-spatio-temporal-data",
+    "title": "Data Foundations",
+    "section": "Spatial and Spatio-Temporal Data",
+    "text": "Spatial and Spatio-Temporal Data\nSuppose we also record soil moisture with coordinates:\n\n\n\nPlotID\nFertiliser\nDate\nx\ny\nSoilMoisture\n\n\n\n\n1\nFertA\n2025-10-01\n123.4\n456.7\n22.3\n\n\n1\nFertA\n2025-10-15\n123.4\n456.7\n21.7\n\n\n2\nFertB\n2025-10-01\n130.0\n460.0\n19.8\n\n\n\nHere:\n\nOne row = one measurement at a particular plot, date, and location.\nx, y (or Latitude, Longitude) give spatial information.\nDate gives temporal information.\n\nThis is naturally long:\n\nmultiple rows per plot,\nmultiple dates.\n\nSuch a layout works well in:\n\nSPSS (for simple models),\nGIS software,\nR/Python geospatial libraries.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#scenario-7-choose-a-layout",
+    "href": "tidy.html#scenario-7-choose-a-layout",
+    "title": "Data Foundations",
+    "section": "Scenario 7: Choose a Layout",
+    "text": "Scenario 7: Choose a Layout\nConsider three scenarios:\n\nScenario A: One exam score per student; compare scores between two teaching methods (Method1 vs Method2).\nScenario B: Yield measured at 0, 3, and 6 months after fertiliser application on the same plots, comparing FertA vs FertB.\nScenario C: Soil moisture measured weekly at multiple GPS locations in a fertiliser trial field.\n\nReasoning\n\nScenario A:\n\nOne row = one student.\nColumns: StudentID, Method, Score.\nLayout: wide & tidy (one measurement per row).\nAnalysis: t-test or one-way ANOVA.\n\nScenario B:\n\nFor classic SPSS repeated-measures:\n\nWide layout with Yield_0, Yield_3, Yield_6.\n\nFor mixed models:\n\nLong layout with columns PlotID, Fertiliser, Month, Yield_t_ha.\n\nBoth are useful, depending on the method.\n\nScenario C:\n\nOne row = one location–date combination.\nColumns: LocationID, x, y, Date, Fertiliser, SoilMoisture.\nLayout: long (spatio-temporal).\nCould use mixed models or spatial methods.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#wrangling-in-spreadsheets-reshaping",
+    "href": "tidy.html#wrangling-in-spreadsheets-reshaping",
+    "title": "Data Foundations",
+    "section": "Wrangling in Spreadsheets: Reshaping",
+    "text": "Wrangling in Spreadsheets: Reshaping\nEven though SPSS can reshape data, it’s important to understand conceptually what reshaping means.\nCommon tasks:\n\nWide → Long\n\nSpread-out repeated measurements become stacked.\nExample: Yield_Y1, Yield_Y2, Yield_Y3 → Year, Yield_t_ha.\n\nLong → Wide\n\nStacked values are separated into columns.\nExample: Group, Count → Count_Tillers, Count_Weeds, etc.\n\nConcatenating variables\n\nCombine FarmID, Field, Plot into one ID.\n\nAggregating\n\nSubsample-level data → plot means or treatment means.\n\n\nUnderstanding these concepts will help you use any software more confidently.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#scenario-8-wide-long-conceptual",
+    "href": "tidy.html#scenario-8-wide-long-conceptual",
+    "title": "Data Foundations",
+    "section": "Scenario 8: Wide → Long (Conceptual)",
+    "text": "Scenario 8: Wide → Long (Conceptual)\nStart from this wide table:\n\n\n\nPlotID\nFertiliser\nYield_Y1\nYield_Y2\nYield_Y3\n\n\n\n\n1\nFertA\n7.2\n7.8\n8.0\n\n\n2\nFertB\n5.8\n6.0\n6.2\n\n\n\nDesign the long version\nWe want columns:\n\nPlotID\nFertiliser\nYear\nYield_t_ha\n\nThe long table would be:\n\n\n\nPlotID\nFertiliser\nYear\nYield_t_ha\n\n\n\n\n1\nFertA\n1\n7.2\n\n\n1\nFertA\n2\n7.8\n\n\n1\nFertA\n3\n8.0\n\n\n2\nFertB\n1\n5.8\n\n\n2\nFertB\n2\n6.0\n\n\n2\nFertB\n3\n6.2\n\n\n\nReasoning:\n\nEach plot has 3 years → 3 rows per plot.\nYear is derived from the original column names (Y1, Y2, Y3).\nYield_t_ha holds the yield value from the respective year.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#scenario-9-long-wide-conceptual",
+    "href": "tidy.html#scenario-9-long-wide-conceptual",
+    "title": "Data Foundations",
+    "section": "Scenario 9: Long → Wide (Conceptual)",
+    "text": "Scenario 9: Long → Wide (Conceptual)\nStart from this long dataset:\n\n\n\nPlotID\nFertiliser\nGroup\nCount\n\n\n\n\n1\nFertA\nTillers\n32\n\n\n1\nFertA\nWeeds\n5\n\n\n1\nFertA\nDeadPlants\n2\n\n\n2\nFertB\nTillers\n28\n\n\n2\nFertB\nWeeds\n9\n\n\n2\nFertB\nDeadPlants\n4\n\n\n\nWe want a wide version with one row per plot:\n\n\n\nPlotID\nFertiliser\nCount_Tillers\nCount_Weeds\nCount_DeadPlants\n\n\n\n\n1\nFertA\n32\n5\n2\n\n\n2\nFertB\n28\n9\n4\n\n\n\nReasoning:\n\nEach Group becomes its own column.\nCount values go into the appropriate column based on Group.\nWe still keep PlotID and Fertiliser as identifying columns.\n\nThis layout might be useful for some multivariate procedures or for simple descriptive comparisons of counts.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#concatenating-variables-creating-new-ids",
+    "href": "tidy.html#concatenating-variables-creating-new-ids",
+    "title": "Data Foundations",
+    "section": "Concatenating Variables: Creating New IDs",
+    "text": "Concatenating Variables: Creating New IDs\nSometimes you need a unique identifier that combines several columns.\nExample:\n\nFarmID = “F01”\nField = “North”\nPlot = “P3”\nYear = 2025\n\nYou can create:\n\nFarm_Field_Plot_Year = \"F01_North_P3_2025\"\n\nIn a spreadsheet, a formula might look like:\n\n=FarmID & \"_\" & Field & \"_\" & Plot & \"_\" & Year\n\nWhy this helps:\n\nMakes sure each row has a unique key.\nHelps when merging data from different files (e.g. weather + yield).\nMakes it clear which measurements belong together.\n\nIn SPSS, you can do the same in Transform → Compute Variable….",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#aggregating-from-subsamples-to-plot-means",
+    "href": "tidy.html#aggregating-from-subsamples-to-plot-means",
+    "title": "Data Foundations",
+    "section": "Aggregating: From Subsamples to Plot Means",
+    "text": "Aggregating: From Subsamples to Plot Means\nStarting data:\n\n\n\nPlotID\nSubsample\nFertiliser\nYield_t_ha\n\n\n\n\n1\n1\nFertA\n7.2\n\n\n1\n2\nFertA\n6.9\n\n\n2\n1\nFertB\n5.8\n\n\n2\n2\nFertB\n6.1\n\n\n\nSometimes the analysis is at plot level, not subsample level.\nWe might want:\n\n\n\nPlotID\nFertiliser\nYield_mean_t_ha\n\n\n\n\n1\nFertA\n7.05\n\n\n2\nFertB\n5.95\n\n\n\nHow we got 7.05:\n\nMean of 7.2 and 6.9 → (7.2 + 6.9) / 2 = 7.05.\n\nConceptually:\n\nWe group by PlotID (and Fertiliser).\nWe compute the mean of Yield_t_ha within each group.\n\nIn Excel: use a pivot table or AVERAGEIF(S).\nIn SPSS: use Data → Aggregate….",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#scenario-10-apply-these-ideas-to-your-own-project",
+    "href": "tidy.html#scenario-10-apply-these-ideas-to-your-own-project",
+    "title": "Data Foundations",
+    "section": "Scenario 10: Apply These Ideas to Your Own Project",
+    "text": "Scenario 10: Apply These Ideas to Your Own Project\nThink about a real or hypothetical project you might do.\nStep 1 – Define your unit\n\nDecide: what is one row?\n\nOne student?\nOne plot?\nOne plant at one time?\n\n\nStep 2 – List variables\n\nWrite down 5–10 variables you expect (e.g. treatment, yield, height, date).\nFor each, decide:\n\nType: numeric, categorical, ID, date, spatial.\nAny formatting issues to watch out for (units, spelling, missing values).\n\n\nStep 3 – Choose a layout\n\nAsk: will I only have one measurement per unit, or repeated measures?\nDecide:\n\nMostly wide (simple cross-sectional data), or\nMostly long (repeated over time or conditions), or\nBoth (e.g. wide for SPSS GLM, long for mixed models).\n\n\nWrite down your choice and a sentence explaining why.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#from-spreadsheet-to-spss-the-big-picture",
+    "href": "tidy.html#from-spreadsheet-to-spss-the-big-picture",
+    "title": "Data Foundations",
+    "section": "From Spreadsheet to SPSS: The Big Picture",
+    "text": "From Spreadsheet to SPSS: The Big Picture\nA robust workflow looks like this:\n\nPlan the dataset\n\nDecide your unit of observation (what is a row).\nDecide what variables you need (what are the columns).\n\nBuild and clean in Excel/Sheets\n\nMake the table roughly tidy:\n\none variable per column,\none observation per row,\none value per cell.\n\nClean types, codes, dates, and missing values.\n\nChoose layout (wide vs long)\n\nBased on the analyses you have in mind.\n\nImport into SPSS\n\nDeclare variable types and labels.\nDefine missing values where appropriate.\n\nUse SPSS mainly for\n\nrunning tests and models,\nchecking assumptions,\ninterpreting outputs and producing graphs.\n\n\nSPSS becomes a statistics engine, not a “data rescue” tool.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#final-reflection",
+    "href": "tidy.html#final-reflection",
+    "title": "Data Foundations",
+    "section": "Final Reflection",
+    "text": "Final Reflection\nTake a moment to answer these for yourself:\n\n“One thing I understand now about data structure that I didn’t appreciate before is…”\n(For example, what one row really means, or why mixing units is dangerous.)\n“One change I will make in how I create or store my own data is…”\n(For example, always using YYYY-MM-DD dates, or keeping IDs as text.)\n“One question I still have about data prep or layouts is…”\n(This can guide what you ask in SPSS lab sessions.)\n\nWriting these down will help you remember the key takeaways.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "tidy.html#take-home-message",
+    "href": "tidy.html#take-home-message",
+    "title": "Data Foundations",
+    "section": "Take-Home Message",
+    "text": "Take-Home Message\n\nGood data structure and formatting dramatically reduce cognitive load in SPSS.\nAs analysts doing data science, you should feel comfortable:\n\nidentifying what one row and one column represent,\nchoosing appropriate variable types,\nplanning wide vs long layouts for different analyses.\n\nThe better your data prep before SPSS, the more time you can spend on the interesting part:\n\ninterpreting results and\nanswering real questions with your data.\n\n\nNext step:\nWe will open SPSS and apply these principles to real datasets so that the software feels like a helper, not a hurdle.",
+    "crumbs": [
+      "Sessions",
+      "Data Foundations"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Home",
+    "section": "",
+    "text": "Honours Research Project\nWelcome to the GitHub webpage for the statistics support of this module. Here you will find lecture notes and teaching materials for all your reading needs, as well as supporting resources.\n👉 Navigate the topics in order using the panel on the left.\nThis space brings together:\n\nWeekly lecture notes and readings\nPractical guides\nLinks to open R-based statistical analysis content created at HAU\n\nUse these resources to work through the module step by step, reinforce your learning, and connect methods directly to your research projects.\nFor any queries, contact Joseph Mhango."
+  },
+  {
+    "objectID": "index.html#honours-research-project",
+    "href": "index.html#honours-research-project",
+    "title": "Home",
+    "section": "",
+    "text": "Honours Research Project\nWelcome to the GitHub webpage for the statistics support of this module. Here you will find lecture notes and teaching materials for all your reading needs, as well as supporting resources.\n👉 Navigate the topics in order using the panel on the left.\nThis space brings together:\n\nWeekly lecture notes and readings\nPractical guides\nLinks to open R-based statistical analysis content created at HAU\n\nUse these resources to work through the module step by step, reinforce your learning, and connect methods directly to your research projects.\nFor any queries, contact Joseph Mhango."
+  },
+  {
+    "objectID": "indexing.html",
+    "href": "indexing.html",
+    "title": "Indexing",
+    "section": "",
+    "text": "By the end of this section, you should be able to:\n\nExplain the concept of indexing in R and why it is useful.\n\nUse the which() function to identify elements that satisfy a condition.\n\nPerform subsetting on vectors, matrices, and data frames.\n\nApply the aggregate() function to summarise data efficiently."
+  },
+  {
+    "objectID": "indexing.html#objectives",
+    "href": "indexing.html#objectives",
+    "title": "Indexing",
+    "section": "",
+    "text": "By the end of this section, you should be able to:\n\nExplain the concept of indexing in R and why it is useful.\n\nUse the which() function to identify elements that satisfy a condition.\n\nPerform subsetting on vectors, matrices, and data frames.\n\nApply the aggregate() function to summarise data efficiently."
+  },
+  {
+    "objectID": "indexing.html#the-concept-of-indexing",
+    "href": "indexing.html#the-concept-of-indexing",
+    "title": "Indexing",
+    "section": "The concept of indexing",
+    "text": "The concept of indexing\nIn R, indexing is how we locate and extract elements from data structures. Think of it like house numbers on a street: every house has a unique number (its “index”), and if you know the number, you can directly access that house.\nThis same idea applies to vectors, matrices, and data frames in R. Instead of manually searching through your data, you use indices to point to exactly the values you want. This is one of the most powerful features of R, because it allows you to extract, modify, and analyse subsets of data without rewriting or duplicating it."
+  },
+  {
+    "objectID": "indexing.html#indexing-with-vectors",
+    "href": "indexing.html#indexing-with-vectors",
+    "title": "Indexing",
+    "section": "Indexing with vectors",
+    "text": "Indexing with vectors\nA vector is the simplest type of data structure in R: a one-dimensional collection of values. Every element in a vector has a position (its index), starting at 1 (unlike Python, which starts at 0).\nFor example:\n\nmy_vector &lt;- c(11.3, 11.2, 10.4, 10.4, 8.7, 10.8, 10.5, 10.3, 9.7, 11.2)\nmy_vector\n\n [1] 11.3 11.2 10.4 10.4  8.7 10.8 10.5 10.3  9.7 11.2\n\n\nTo extract elements, we place indices in square brackets:\n\nmy_vector[1]      # first element\n\n[1] 11.3\n\nmy_vector[3:5]    # third to fifth elements\n\n[1] 10.4 10.4  8.7\n\nmy_vector[c(2,4)] # second and fourth elements\n\n[1] 11.2 10.4\n\n\nIf you leave the square brackets empty, R returns the whole vector:\n\nmy_vector[]\n\n [1] 11.3 11.2 10.4 10.4  8.7 10.8 10.5 10.3  9.7 11.2\n\n\nThis is useful when you want to check the full content."
+  },
+  {
+    "objectID": "indexing.html#indexing-with-matrices",
+    "href": "indexing.html#indexing-with-matrices",
+    "title": "Indexing",
+    "section": "Indexing with matrices",
+    "text": "Indexing with matrices\nA matrix is a two-dimensional data structure in R (rows × columns). Indexing works in a similar way to vectors, but now you have to specify both row and column positions.\nFor example:\n\nmy_matrix &lt;- matrix(\n  data = c(2, 3, 4, 5, 6, 6, 6, 6), \n  nrow = 2, \n  byrow = TRUE\n)\n\nmy_matrix\n\n     [,1] [,2] [,3] [,4]\n[1,]    2    3    4    5\n[2,]    6    6    6    6\n\n\nTo extract data, use the format matrix[row, column]:\n\nmy_matrix[1, 2]     # element in row 1, column 2\n\n[1] 3\n\nmy_matrix[1:2, 3:4] # rows 1–2, columns 3–4\n\n     [,1] [,2]\n[1,]    4    5\n[2,]    6    6\n\n\nThis is like reading a spreadsheet: first locate the row, then the column."
+  },
+  {
+    "objectID": "indexing.html#using-which-and-subsetting",
+    "href": "indexing.html#using-which-and-subsetting",
+    "title": "Indexing",
+    "section": "Using which() and subsetting",
+    "text": "Using which() and subsetting\nSometimes you don’t know the exact position of the element you want — you only know a condition it must satisfy. The function which() is designed for this situation.\nIt tells you the index (or indices) of elements that meet a condition:\n\nvector_a &lt;- c(4, 7, 2, 9, 6)\n\nwhich(vector_a &gt; 5)   # returns positions of elements greater than 5\n\n[1] 2 4 5\n\nwhich.min(vector_a)   # position of the smallest value\n\n[1] 3\n\nwhich.max(vector_a)   # position of the largest value\n\n[1] 4\n\n\nNotice that which() does not return the values themselves, but their positions. You can then use those positions to extract the actual elements if you want:\n\nvector_a[which(vector_a &gt; 5)]\n\n[1] 7 9 6"
+  },
+  {
+    "objectID": "indexing.html#selection-on-data.frame-objects",
+    "href": "indexing.html#selection-on-data.frame-objects",
+    "title": "Indexing",
+    "section": "Selection on data.frame objects",
+    "text": "Selection on data.frame objects\nA data frame is a two-dimensional structure similar to a matrix, but with one key difference:\n- In a matrix, every element must have the same data type (all numbers, or all characters).\n- In a data frame, each column can be of a different type (e.g. one column numeric, another character, another factor).\nThis makes data frames much more flexible for real-world datasets.\nAccessing data frames follows similar rules to matrices:\n- df[row, column] extracts specific cells.\n- df$column_name extracts an entire column.\nFor example:\n\nhead(OrchardSprays)\n\n  decrease rowpos colpos treatment\n1       57      1      1         D\n2       95      2      1         E\n3        8      3      1         B\n4       69      4      1         H\n5       92      5      1         G\n6       90      6      1         F\n\nOrchardSprays[1:3, \"treatment\"] # first three rows of treatment column\n\n[1] D E B\nLevels: A B C D E F G H\n\nOrchardSprays$treatment         # entire column\n\n [1] D E B H G F C A C B H D E A F G F H A E D C G B H A E C F G B D E D G A C B\n[39] H F A C F G B D E H B G C F A H D E G F D B H E A C\nLevels: A B C D E F G H\n\n\nThink about this question: what are the advantages of a data frame over a matrix when analysing survey or experimental data?"
+  },
+  {
+    "objectID": "indexing.html#slicing-data",
+    "href": "indexing.html#slicing-data",
+    "title": "Indexing",
+    "section": "Slicing data",
+    "text": "Slicing data\nSlicing means selecting rows that satisfy certain conditions. This is where indexing combines with logical operations.\nFor example, using the built-in OrchardSprays dataset:\n\nOrchardSprays$treatment == \"D\"\n\n [1]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE\n[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE\n[25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE\n[37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE\n[49] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE\n[61] FALSE FALSE FALSE FALSE\n\n\nThis returns a logical vector (TRUE or FALSE) for each row, depending on whether the treatment is equal to \"D\".\nYou can use this logical vector directly to filter the data:\n\nOrchardSprays[OrchardSprays$treatment == \"D\", ]\n\n   decrease rowpos colpos treatment\n1        57      1      1         D\n12       36      4      2         D\n21       22      5      3         D\n32       51      8      4         D\n34       28      2      5         D\n46       27      6      6         D\n55       20      7      7         D\n59       39      3      8         D\n\n\nThis gives you only the rows where treatment equals D."
+  },
+  {
+    "objectID": "indexing.html#using-aggregate",
+    "href": "indexing.html#using-aggregate",
+    "title": "Indexing",
+    "section": "Using aggregate()",
+    "text": "Using aggregate()\nThe aggregate() function is very useful for summarising data. It allows you to group data by one or more factors (e.g. treatment groups) and apply a function (e.g. mean, sum, standard deviation) to each group.\nFor example, to calculate the average decrease by treatment group in the OrchardSprays dataset:\n\naggregate(\n  x = OrchardSprays$decrease,\n  by = list(treatment = OrchardSprays$treatment),\n  FUN = mean\n)\n\n  treatment      x\n1         A  4.625\n2         B  7.625\n3         C 25.250\n4         D 35.000\n5         E 63.125\n6         F 69.000\n7         G 68.500\n8         H 90.250\n\n\nHere, x is the variable to summarise, by defines the grouping factor, and FUN specifies the summary function.\nThis gives you a quick way to compute group statistics without manually splitting your data."
+  },
+  {
+    "objectID": "indexing.html#summary",
+    "href": "indexing.html#summary",
+    "title": "Indexing",
+    "section": "Summary",
+    "text": "Summary\nIndexing is the foundation of working with data in R. Whether you are pulling out a single value from a vector, slicing a matrix, filtering rows of a data frame, or summarising groups with aggregate(), the same principles apply:\n- Data are stored in structures.\n- Structures have indices.\n- You can use indices and conditions to extract, analyse, and summarise data efficiently. ````"
+  },
+  {
+    "objectID": "indexing.html#practice-makes-perfect",
+    "href": "indexing.html#practice-makes-perfect",
+    "title": "Indexing",
+    "section": "Practice makes perfect",
+    "text": "Practice makes perfect"
+  }
+]
